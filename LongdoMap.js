@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 
 export let longdo;
 export let map;
@@ -37,13 +38,9 @@ export class LongdoMap extends Component {
     if (existingScript) this.mapCallback();
     if (existingScript && callback) callback();
   }
-
   render() {
     return (
-        <div id={this.props.id} style={{width:'100%',height:'100%'}}>
-        
-        </div>
-    );
-  }
+      <div id={this.props.id} style={{width:"100%",height:"100%"}}> </div>
+  )}
 
 }

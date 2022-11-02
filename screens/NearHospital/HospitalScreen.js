@@ -27,8 +27,11 @@ const HospitalScreen = ({ navigation, route }) => {
             setAdd(res.data)
         })
         const marker = new longdo.Marker({ lon: lon, lat: lat });
-        map.Layers.setBase(longdo.Layers.GRAY);
-        map.Overlays.add(marker);
+        map.Route.add(marker);
+        map.Route.add({ lon: 100.52511856932158, lat: 13.719174936448708 });
+        map.Route.search();
+        // map.Layers.setBase(longdo.Layers.GRAY);
+        // map.Overlays.add(marker);
     }
     const mapKey = '6f8f9684d64437812015368c00f313c4'
     return (

@@ -14,9 +14,33 @@ import {
 } from "react-native";
 import { CATEGORIES } from "../../data/data";
 import { Ionicons } from '@expo/vector-icons';
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Sarabun_100Thin,
+  Sarabun_100Thin_Italic,
+  Sarabun_200ExtraLight,
+  Sarabun_200ExtraLight_Italic,
+  Sarabun_300Light,
+  Sarabun_300Light_Italic,
+  Sarabun_400Regular,
+  Sarabun_400Regular_Italic,
+  Sarabun_500Medium,
+  Sarabun_500Medium_Italic,
+  Sarabun_600SemiBold,
+  Sarabun_600SemiBold_Italic,
+  Sarabun_700Bold,
+  Sarabun_700Bold_Italic,
+  Sarabun_800ExtraBold,
+  Sarabun_800ExtraBold_Italic,
+} from '@expo-google-fonts/sarabun';
+
 
 
 const EmergencyScreen = ({ navigation }) => {
+
+
+
     const renderCategories = (itemData) => {
         return (
             <View >
@@ -40,9 +64,12 @@ const EmergencyScreen = ({ navigation }) => {
     };
 
     return (
+        //TabBar
         <ScrollView style={{alignSelf: "center"}}>
             <View style={styles.searchbar}>
-                <TextInput placeholder="Search" style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10 }} />
+                <TextInput placeholder="Search" style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10, width: "60%" }} 
+                // onChangeText={(text) => searchFilterFunction(text)} value={search}
+          />
                 <TouchableOpacity style={{ borderRadius: 50, backgroundColor: "white", padding: 10, margin: 10 }}>
                     <Ionicons name="search" color={"black"} size={20} />
                 </TouchableOpacity>
@@ -68,7 +95,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         color: "#AF4242",
-        fontSize: 18
+        fontSize: 18,
+        // fontFamily: 'Sarabun_700Bold' //ลองเฉยๆ
 
     },
     tinyLogo: {
@@ -82,8 +110,9 @@ const styles = StyleSheet.create({
         marginTop: 30,
         borderWidth: 2,
         borderRadius:  50,
-        flexDirection: "row"
+        flexDirection: "row",
     }
 });
 
 export default EmergencyScreen;
+

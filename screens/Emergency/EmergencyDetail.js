@@ -31,12 +31,14 @@ const EmergencyDetail = ({ navigation, route }) => {
             setCategory(val);
             setNumber(val.c_number)
             setCheck(1);
-        });
+        }).catch((error)=>{
+            console.log("Api call error");
+            alert(error.message);
+         });
     }
     useEffect(() => {
         if(check == 0 ){
-            getCategory();
-            console.log("1")
+            getCategory()
         }
     })
     const renderCategories = (itemData) => {
@@ -87,7 +89,8 @@ const styles = StyleSheet.create({
         color: "#AF4242",
         fontSize: 18,
         width: 180,
-        marginLeft: 18
+        marginLeft: 18,
+        fontFamily: "Pridi-Regular"
     },
     name: {
         flexDirection: 'column',
