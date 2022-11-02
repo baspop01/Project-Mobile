@@ -25,11 +25,11 @@ const ServiceDetail = ({route}) => {
                 style={styles.image}
                 source={require("../../assets/it_logo.png")}
             />
-            <Text style={{ textAlign: "justify", fontSize: "4vw" }}>{category.c_detail}</Text>
+            <Text style={{textAlign: "left", fontSize: 16 }}>    {category.c_detail}</Text>
             <TouchableOpacity style={styles.phone} onPress={() => { Linking.openURL('tel:0616645773'); }}>
-                <FontAwesome name="phone" size={"10vw"} color="white" />
+                <FontAwesome name="phone" size={40} color="white" />
             </TouchableOpacity>
-            <Text style={[styles.text, { color: "#414370", fontSize: "5vw" }]}>
+            <Text style={[styles.text, { color: "#414370", fontSize: 30 }]}>
                 {category.c_number}
             </Text>
         </ScrollView>
@@ -39,27 +39,27 @@ const ServiceDetail = ({route}) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        padding: "10vw",
+        padding: 40,
         textAlign: "center"
     },
     image: {
         alignSelf: "center",
-        width: "50vw",
-        height: "50vw",
-        margin: "10vw"
+        width: 200,
+        height: 200,
+        margin: 50
     },
     text: {
-        marginTop: "5vw",
+        marginTop: 20,
         fontWeight: "bold",
         textAlign: "center",
         color: "#414370",
-        fontSize: "5vw"
+        fontSize: 18
     },
     phone: {
-        marginTop: "10vw",
-        padding: "3.25vw",
-        height: "15vw",
-        width: "15vw",
+        marginTop: 50,
+        padding: 13,
+        height: 60,
+        width: 60,
         backgroundColor: "#008037",
         borderRadius: "100%",
         alignSelf: "center"

@@ -47,12 +47,12 @@ const EmergencyDetail = ({ navigation, route }) => {
                     navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item })
                 }}>
                     <View style={styles.box}>
-                        <FontAwesome name="heartbeat" size={"18vw"} color="#E95060" />
+                        <FontAwesome name="heartbeat" size={70} color="#E95060" />
                         <View style={styles.name}>
                             <Text style={styles.text}>
                                 {itemData.item.c_name}
                             </Text>
-                            <Text style={[styles.text, { color: "#414370", fontSize: "8vw" }]}>
+                            <Text style={[styles.text, { color: "#414370", fontSize: 42 }]}>
                                 {itemData.item.c_number}
                             </Text>
                         </View>
@@ -60,7 +60,7 @@ const EmergencyDetail = ({ navigation, route }) => {
                             Linking.openURL('tel:' + {number});
                             getTest()
                         }}>
-                            <FontAwesome name="phone" size={"10vw"} color="white" />
+                            <FontAwesome name="phone" size={38} color="white" />
                         </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
@@ -76,29 +76,28 @@ const EmergencyDetail = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     box: {
         width: "100%",
-        height: "28vw",
         borderTopWidth: 2,
         flexDirection: "row",
         // justifyContent: 'space-around',
-        padding: "3vw",
+        padding: 15,
     },
     text: {
         fontWeight: "bold",
         textAlign: "left",
         color: "#AF4242",
-        fontSize: "4vw",
-        width: "50vw",
-        marginLeft: "8vw"
+        fontSize: 18,
+        width: 180,
+        marginLeft: 18
     },
     name: {
         flexDirection: 'column',
         alignSelf: "left",
     },
     phone: {
-        margin: "3vw",
-        padding: "3.25vw",
-        height: "15vw",
-        width: "15vw",
+        margin: 15,
+        padding: 13.5,
+        height: 60,
+        width: 60,
         backgroundColor: "#008037",
         borderRadius: "100%",
 
