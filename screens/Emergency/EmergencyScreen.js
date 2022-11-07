@@ -46,7 +46,7 @@ const EmergencyScreen = ({ navigation }) => {
             <View >
                 <TouchableOpacity style={styles.category} onPress={() => {
 
-                    navigation.navigate("EmergencyDetail", { prev: "Emergency", categoryId: itemData.item.id, title: itemData.item.title })
+                    navigation.navigate("EmergencyDetail", { prev: "Emergency", categoryId: itemData.item.id, title: itemData.item.title, image: itemData.item.image })
                 }}>
                     <View style={styles.box}>
                         <Image

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import HTML from 'react-native-render-html'
 
 export let longdo;
 export let map;
@@ -40,6 +41,7 @@ export class LongdoMap extends Component {
   }
   render() {
     return (
+
       <div id={this.props.id} style={{width:"100%",height:"100%"}}> </div>
   )}
 

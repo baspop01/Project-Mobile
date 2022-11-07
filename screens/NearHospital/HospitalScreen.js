@@ -26,9 +26,9 @@ const HospitalScreen = ({ navigation, route }) => {
         Axios.get(`https://api.longdo.com/map/services/address?lon=` + lon + `&lat=` + lat + `&noelevation=1&key=6f8f9684d64437812015368c00f313c4`).then((res) => {
             setAdd(res.data)
         })
-        const marker = new longdo.Marker({ lon: lon, lat: lat });
+        const marker = new longdo.Marker({ lon: 100.55537544163074, lat: 13.740708813065979 });
         map.Route.add(marker);
-        map.Route.add({ lon: 100.52511856932158, lat: 13.719174936448708 });
+        map.Route.add({ lon: 100.52151408640547, lat: 13.719364822311654 });
         map.Route.search();
         // map.Layers.setBase(longdo.Layers.GRAY);
         // map.Overlays.add(marker);
