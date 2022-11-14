@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import {
     View,
     Text,
@@ -9,24 +11,24 @@ import {
     Platform,
     Animated
 } from "react-native";
+import Axios from "axios";
 
 
 const PoliceStationScreen = () => {
-    const sizeVal = useRef(new Animated.Value(0.3)).current;
+    const [gps, setGps] = useState("")
 
-    const PoliceStationScreen = () => {
-        Animated.spring(sizeVal, {
-            toValue: 1,
-            friction: 1,
-        }).start(() => { sizeVal.setValue(0.3); });
-    };
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            Axios.get(`https://api.longdo.com/map/services/address?lon=` + position.coords.longitude + `&lat=` + position.coords.latitude + `&noelevation=1&key=6f8f9684d64437812015368c00f313c4`).then((res) => {
+                var address = res.data.road + " " + res.data.subdistrict + " " + res.data.district + " " + res.data.province + " " + res.data.postcode
+            })
+            setGps(`https://www.google.com/maps/d/u/0/embed?mid=1doapjk1Xt5XpsSEKrb9uqttAwRQ&hl=en_US&ehbc=2E312F&ll=`+position.coords.latitude+`%2C`+position.coords.longitude+`&z=15`)
+        })
+    }, [gps])
 
     return (
-        <View style={{ flexDirection: "column", height: "100%" }}>
-            <Animated.Image style={{width: 180, height: 150, alignSelf: "center", margin: 100, transform: [{ scale: sizeVal }] }} source={require("../../assets/it_logo.png")} />
-            <View style={{ flexDirection: "column", flex: 1, }}>
-                <Button title="PoliceStationScreen" onPress={PoliceStationScreen} />
-            </View>
+        <View style={{height: "100%", width: "100%" }}>
+            <iframe src={gps} width="100%" height="100%"></iframe>
         </View>
     );
 };

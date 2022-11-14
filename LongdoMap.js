@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import HTML from 'react-native-render-html'
 
 export let longdo;
 export let map;

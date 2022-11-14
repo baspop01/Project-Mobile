@@ -15,42 +15,71 @@ import { CATEGORIES } from "../../data/data";
 import { FontAwesome } from '@expo/vector-icons';
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { AsyncStorage } from 'react-native';
+import { ScrollView } from "react-native-gesture-handler";
 
 
 
 const EmergencyDetail = ({ navigation, route }) => {
-    const { prev, categoryId, image } = route.params;
+    const { prev, categoryId, image, search } = route.params;
     const [category, setCategory] = useState([]);
+    const [msg, setMsg] = useState("");
     const [number, setNumber] = useState('');
-    const [check, setCheck] = useState(0);
 
 
     const getCategory = () => {
         Axios.get("http://localhost:3000/category").then((res) => {
+            if(categoryId == "none"){
+                setMsg("ไม่มีคำที่ค้นหา")
+            }
             let val = res.data.filter((val) => {
                 return val.c_type == categoryId
             })
             setCategory(val);
             setNumber(val.c_number)
-            setCheck(1);
+        }).catch((error) => {
+            console.log("Api call error");
+            alert(error.message);
+        });
+    }
+    const getSearch = () => {
+        Axios.get("http://localhost:3000/search", {
+            params: {
+                search: search,
+            }
+        }).then((res) => {
+            if (res.data.length == 0){
+                setMsg("ไม่มีคำที่ค้นหา")
+            }
+            setCategory(res.data)
         }).catch((error) => {
             console.log("Api call error");
             alert(error.message);
         });
     }
     useEffect(() => {
-        if (check == 0) {
+        if (search.length > 0) {
+            getSearch()
+        } else {
             getCategory()
         }
-    })
-    const onFavorite = (id) => {
-        //asfsafasfasfa
-    }
-
+    }, [])
 
     const renderCategories = (itemData) => {
-        console.log(itemData)
+        const Img = () => {
+            var img = image;
+            CATEGORIES.forEach((val) => {
+                if (itemData.item.c_type == parseInt(val.id)) {
+                    img = val.image
+                }
+            })
+            return (
+                <Image
+                    style={styles.tinyLogo}
+                    source={{ uri: img }}
+                // source={itemData.item.image}
+                />
+            )
+        }
         return (
             <View>
 
@@ -58,11 +87,7 @@ const EmergencyDetail = ({ navigation, route }) => {
                     navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item })
                 }}>
                     <View style={styles.box}>
-                        <Image
-                            style={styles.tinyLogo}
-                            source={{ uri: image }}
-                        // source={itemData.item.image}
-                        />
+                        <Img />
                         <View style={styles.name}>
                             <Text style={styles.text}>
                                 {itemData.item.c_name}
@@ -97,7 +122,11 @@ const EmergencyDetail = ({ navigation, route }) => {
     };
 
     return (
-        <FlatList data={category} renderItem={renderCategories} numColumns={1} />
+        <ScrollView>
+            <FlatList data={category} renderItem={renderCategories} numColumns={1} />
+            <Text style={{textAlign: "center", fontSize: 25, margin: "25%"}}>{msg}</Text>
+        </ScrollView>
+
     );
 };
 

@@ -11,6 +11,7 @@ import FavoriteScreen from "../screens/Favorite/FavoriteScreen";
 import SettingScreen from "../screens/SettingPage/SettingScreen";
 import EmergencyDetail from "../screens/Emergency/EmergencyDetail";
 import ServiceDetail from "../screens/Emergency/ServiceDetail";
+import HospitalDetail from "../screens/NearHospital/HospitalDetail";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,18 +30,42 @@ function EmergencyNavigator() {
             backgroundColor: "#61D8CF"
           }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: route.params.title
         })
-      }/>
+      } />
       <Stack.Screen name="ServiceDetail" component={ServiceDetail} options={
         ({ route }) => ({
           headerStyle: {
             backgroundColor: "#61D8CF"
           }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 20 }, headerTitleAlign: "center", headerTitle: route.params.category.c_name
         })
-      }/>
+      } />
     </Stack.Navigator>
   );
 };
-
+function HospitalNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="Near Hospital">
+      <Stack.Screen name="Near Hospital" component={HospitalScreen} options={{
+        headerStyle: {
+          backgroundColor: "#61D8CF"
+        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "โรงพยาบาลใกล้ฉัน"
+      }} />
+      <Stack.Screen name="HospitalDetail" component={HospitalDetail} options={
+        ({ route }) => ({
+          headerStyle: {
+            backgroundColor: "#61D8CF"
+          }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: route.params.title
+        })
+      } />
+      <Stack.Screen name="ServiceDetail" component={ServiceDetail} options={
+        ({ route }) => ({
+          headerStyle: {
+            backgroundColor: "#61D8CF"
+          }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 20 }, headerTitleAlign: "center", headerTitle: route.params.category.c_name
+        })
+      } />
+    </Stack.Navigator>
+  )
+}
 function TabNavigator() {
   return (
     // กำหนดรายละเอียดของ navigator
@@ -57,20 +82,18 @@ function TabNavigator() {
         }, headerShown: false
       }} />
 
-      <Tab.Screen name="Near Hospital" component={HospitalScreen} options={{
+      <Tab.Screen name="Near Hospital" component={HospitalNavigator} options={{
         tabBarIcon: ({ color, size }) => {
           return <Ionicons name="medkit" size={35} color={"#336633"} />;
-        }, headerStyle: {
-          backgroundColor: "#61D8CF"
-        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "โรงพยาบาลใกล้ฉัน"
+        }, headerShown: false
       }} />
 
-      <Tab.Screen name="Near PS" component={PoliceStationScreen} options={{
+      <Tab.Screen name="PS Area" component={PoliceStationScreen} options={{
         tabBarIcon: ({ color, size }) => {
           return <Ionicons name="shield" size={35} color={"#1F356C"} />;
         }, headerStyle: {
           backgroundColor: "#61D8CF"
-        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "สถานีตำรวจใกล้ฉัน"
+        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 23 }, headerTitleAlign: "center", headerTitle: "ขอบเขตสถานีตำรวจนครบาล"
       }} />
 
       <Tab.Screen name="Favorite" component={FavoriteScreen} options={{
@@ -107,6 +130,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    
+
   },
 });

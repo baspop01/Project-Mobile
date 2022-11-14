@@ -14,45 +14,24 @@ import {
 } from "react-native";
 import { CATEGORIES } from "../../data/data";
 import { Ionicons } from '@expo/vector-icons';
-import AppLoading from 'expo-app-loading';
-import {
-  useFonts,
-  Sarabun_100Thin,
-  Sarabun_100Thin_Italic,
-  Sarabun_200ExtraLight,
-  Sarabun_200ExtraLight_Italic,
-  Sarabun_300Light,
-  Sarabun_300Light_Italic,
-  Sarabun_400Regular,
-  Sarabun_400Regular_Italic,
-  Sarabun_500Medium,
-  Sarabun_500Medium_Italic,
-  Sarabun_600SemiBold,
-  Sarabun_600SemiBold_Italic,
-  Sarabun_700Bold,
-  Sarabun_700Bold_Italic,
-  Sarabun_800ExtraBold,
-  Sarabun_800ExtraBold_Italic,
-} from '@expo-google-fonts/sarabun';
+import { useState } from "react";
+
 
 
 
 const EmergencyScreen = ({ navigation }) => {
-
-
-
+    const [search, setSearch] = useState("");
     const renderCategories = (itemData) => {
         return (
             <View >
                 <TouchableOpacity style={styles.category} onPress={() => {
 
-                    navigation.navigate("EmergencyDetail", { prev: "Emergency", categoryId: itemData.item.id, title: itemData.item.title, image: itemData.item.image })
+                    navigation.navigate("EmergencyDetail", { prev: "Emergency", categoryId: itemData.item.id, title: itemData.item.title, image: itemData.item.image, search: "" })
                 }}>
                     <View style={styles.box}>
                         <Image
                             style={styles.tinyLogo}
-                            source={{uri: itemData.item.image}}
-                            // source={itemData.item.image}
+                            source={{ uri: itemData.item.image }}
                         />
                     </View>
                     <Text style={styles.text}>
@@ -65,16 +44,20 @@ const EmergencyScreen = ({ navigation }) => {
 
     return (
         //TabBar
-        <ScrollView style={{alignSelf: "center"}}>
+        <ScrollView style={{ alignSelf: "center" }}>
             <View style={styles.searchbar}>
-                <TextInput placeholder="Search" style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10, width: "60%" }} 
-                // onChangeText={(text) => searchFilterFunction(text)} value={search}
-          />
-                <TouchableOpacity style={{ borderRadius: 50, backgroundColor: "white", padding: 10, margin: 10 }}>
+                <TextInput onChangeText={(val) => {
+                    setSearch(val)
+                }} placeholder="ค้นหาบริการฉุกเฉิน" style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10, width: "60%" }}
+                />
+                <TouchableOpacity style={{ borderRadius: 50, backgroundColor: "white", padding: 10, margin: 10 }} onPress={() => {
+
+                    navigation.navigate("EmergencyDetail", { prev: "Emergency", search: search, title: "สายด่วนฉุกเฉิน", image: "", categoryId: "none" })
+                }}>
                     <Ionicons name="search" color={"black"} size={20} />
                 </TouchableOpacity>
             </View>
-            <FlatList data={CATEGORIES} renderItem={renderCategories} numColumns={3}/>
+            <FlatList data={CATEGORIES} renderItem={renderCategories} numColumns={3} />
         </ScrollView>
     );
 };
@@ -109,7 +92,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: 30,
         borderWidth: 2,
-        borderRadius:  50,
+        borderRadius: 50,
         flexDirection: "row",
     }
 });
