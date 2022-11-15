@@ -40,7 +40,6 @@ const HospitalScreen = ({ navigation, route }) => {
     }
     const getHospitalSerach = () => {
         setHospital([])
-        console.log(search)
         if (search == ""){
             getHospital(lon, lat)
         }else{
