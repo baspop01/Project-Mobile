@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View, Text, FlatList, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { TouchableOpacity, View, Text, FlatList, StyleSheet, TextInput, ScrollView, Linking } from 'react-native';
 import Axios from "axios";
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -113,13 +113,7 @@ const HospitalScreen = ({ navigation, route }) => {
                                     style={styles.icon}
                                     onPress={() => onFavorite(itemData.item.id)}
                                 >
-                                    <FontAwesome
-                                        name="star"
-                                        size={32}
-                                        color="black"
-
-                                    />
-
+                                   
                                 </TouchableOpacity>
                             </Text>
                         </View>

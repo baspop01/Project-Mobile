@@ -60,7 +60,25 @@ app.get('/hospital', (req, res) => {
             res.json(result)
         }
     })
-})
+});
+app.get('/keyword', (req, res) => {
+    db.query("SELECT * FROM keyword", (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json(result);
+        }
+    })
+});
+app.get('/statistics', (req, res) => {
+    db.query("SELECT * FROM statistics", (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json(result);
+        }
+    })
+});
 
 app.listen(3000, () => {
     console.log(`Example app listening at http://localhost:3000`)

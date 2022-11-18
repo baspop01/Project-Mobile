@@ -7,8 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import EmergencyScreen from "../screens/Emergency/EmergencyScreen";
 import HospitalScreen from "../screens/NearHospital/HospitalScreen";
 import PoliceStationScreen from "../screens/NearPolice/PoliceStationScreen";
-import FavoriteScreen from "../screens/Favorite/FavoriteScreen";
-import SettingScreen from "../screens/SettingPage/SettingScreen";
+import StatisticsScreen from "../screens/Favorite/StatisticsScreen";
+import SosScreen from "../screens/SosPage/SosScreen";
 import EmergencyDetail from "../screens/Emergency/EmergencyDetail";
 import ServiceDetail from "../screens/Emergency/ServiceDetail";
 import HospitalDetail from "../screens/NearHospital/HospitalDetail";
@@ -78,38 +78,38 @@ function TabNavigator() {
 
       <Tab.Screen name="Emergency" component={EmergencyNavigator} options={{
         tabBarIcon: ({ color, size }) => {
-          return <Ionicons name="call" size={35} color={"#791214"} />;
+          return <Ionicons name="call" size={35} color={color} />;
         }, headerShown: false
       }} />
 
       <Tab.Screen name="Near Hospital" component={HospitalNavigator} options={{
         tabBarIcon: ({ color, size }) => {
-          return <Ionicons name="medkit" size={35} color={"#336633"} />;
+          return <Ionicons name="location" size={35} color={color} />;
         }, headerShown: false
       }} />
 
       <Tab.Screen name="PS Area" component={PoliceStationScreen} options={{
         tabBarIcon: ({ color, size }) => {
-          return <Ionicons name="shield" size={35} color={"#1F356C"} />;
+          return <Ionicons name="shield" size={35} color={color} />;
         }, headerStyle: {
           backgroundColor: "#61D8CF"
         }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 23 }, headerTitleAlign: "center", headerTitle: "ขอบเขตสถานีตำรวจนครบาล"
       }} />
 
-      <Tab.Screen name="Favorite" component={FavoriteScreen} options={{
+      <Tab.Screen name="Statistics" component={StatisticsScreen} options={{
         tabBarIcon: ({ color, size }) => {
-          return <Ionicons name="star" size={35} color={"#F7BF0B"} />;
+          return <Ionicons name="bar-chart" size={35} color={color} />;
         }, headerStyle: {
           backgroundColor: "#61D8CF"
-        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "รายการโปรด"
+        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "สถิติอุบัติเหตุ"
       }} />
 
-      <Tab.Screen name="Setting" component={SettingScreen} options={{
+      <Tab.Screen name="SOS" component={SosScreen} options={{
         tabBarIcon: ({ color, size }) => {
-          return <Ionicons name="settings" size={35} color={color} />;
+          return <Ionicons name="medical" size={35} color={color} />;
         }, headerStyle: {
           backgroundColor: "#61D8CF"
-        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "ตั้งค่า"
+        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "ขอความช่วยเหลือเร่งด่วน"
       }} />
     </Tab.Navigator>
   );

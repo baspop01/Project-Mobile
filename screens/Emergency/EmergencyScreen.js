@@ -14,18 +14,48 @@ import {
 } from "react-native";
 import { CATEGORIES } from "../../data/data";
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from "react";
-
-
-
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import DropDownSearch from "../../component/DropDownSearch";
 
 const EmergencyScreen = ({ navigation }) => {
     const [search, setSearch] = useState("");
+    const [listDropDown, setListDropDown] = useState([]);
+    const [isSearch, setIsSearch] = useState(false);
+    var keyword = [];
+    const getKeyword = () => {
+        Axios.get("http://localhost:3000/keyword").then((res) => {
+            keyword = res.data
+        }).catch((error) => {
+            console.log("Api call error");
+            alert(error.message);
+        });
+    };
+    const dropDown = (val) => {
+        var listData = keyword.filter((data) => {
+            if (data.keyword.match(val)) {
+                return data
+            }
+        })
+        if (listData.length == 0) {
+            listData = [{
+                'id': 101,
+                'keyword': 'ไม่มีคำค้นหาในลิสต์'
+            }]
+        }
+        setListDropDown(listData)
+        setIsSearch(true)
+    };
+    useEffect(() => {
+        if (keyword.length <= 0) {
+            getKeyword()
+        }
+    }, [search])
+
     const renderCategories = (itemData) => {
         return (
             <View >
                 <TouchableOpacity style={styles.category} onPress={() => {
-
                     navigation.navigate("EmergencyDetail", { prev: "Emergency", categoryId: itemData.item.id, title: itemData.item.title, image: itemData.item.image, search: "" })
                 }}>
                     <View style={styles.box}>
@@ -41,17 +71,30 @@ const EmergencyScreen = ({ navigation }) => {
             </View>
         );
     };
+    const pullsearch = (data) => {
+        setSearch(data)
+    }
 
     return (
         //TabBar
         <ScrollView style={{ alignSelf: "center" }}>
+
+            {
+                isSearch
+                &&
+                <DropDownSearch listData={listDropDown} func={pullsearch}/>
+            }
             <View style={styles.searchbar}>
                 <TextInput onChangeText={(val) => {
-                    setSearch(val)
-                }} placeholder="ค้นหาบริการฉุกเฉิน" style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10, width: "60%" }}
+                    setSearch(val);
+                    if (val) {
+                        dropDown(val);
+                    }
+                    else
+                        setIsSearch(false)
+                }} placeholder="ค้นหาบริการฉุกเฉิน" value={search} style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10, width: "60%" }}
                 />
                 <TouchableOpacity style={{ borderRadius: 50, backgroundColor: "white", padding: 10, margin: 10 }} onPress={() => {
-
                     navigation.navigate("EmergencyDetail", { prev: "Emergency", search: search, title: "สายด่วนฉุกเฉิน", image: "", categoryId: "none" })
                 }}>
                     <Ionicons name="search" color={"black"} size={20} />
@@ -94,8 +137,10 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 50,
         flexDirection: "row",
+    },
+    searchList: {
+        position: "absolute"
     }
 });
 
 export default EmergencyScreen;
-

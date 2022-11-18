@@ -23,9 +23,21 @@ const EmergencyDetail = ({ navigation, route }) => {
     const { prev, categoryId, image, search } = route.params;
     const [category, setCategory] = useState([]);
     const [msg, setMsg] = useState("");
-    const [number, setNumber] = useState('');
 
+    const getCategoryBySearch = (data) => {
+        Axios.get("http://localhost:3000/category").then((res) => {
+            let val = res.data.filter(val => {
+                return data.includes(val.id.toString())
+            })
+            setMsg("")
+            setCategory(val);
+        }).catch((error) => {
+            console.log("Api call error");
+            alert(error.message);
+        });
 
+    }
+    
     const getCategory = () => {
         Axios.get("http://localhost:3000/category").then((res) => {
             if(categoryId == "none"){
@@ -35,30 +47,44 @@ const EmergencyDetail = ({ navigation, route }) => {
                 return val.c_type == categoryId
             })
             setCategory(val);
-            setNumber(val.c_number)
         }).catch((error) => {
             console.log("Api call error");
             alert(error.message);
         });
     }
-    const getSearch = () => {
-        Axios.get("http://localhost:3000/search", {
-            params: {
-                search: search,
-            }
-        }).then((res) => {
-            if (res.data.length == 0){
-                setMsg("ไม่มีคำที่ค้นหา")
-            }
-            setCategory(res.data)
+    const getSearch = (searchData) => {
+        var check = true;
+        Axios.get("http://localhost:3000/keyword").then((res) => {
+            res.data.map((data) => {
+                if (data.keyword == searchData) {
+                    var array = data.category.split(',')
+                    check = false
+                    getCategoryBySearch(array)
+                }
+            })
         }).catch((error) => {
             console.log("Api call error");
             alert(error.message);
         });
+        if(check){
+            Axios.get("http://localhost:3000/search", {
+                params: {
+                    search: search,
+                }
+            }).then((res) => {
+                if (res.data.length == 0){
+                    setMsg("ไม่มีคำที่ค้นหา")
+                }
+                setCategory(res.data)
+            }).catch((error) => {
+                console.log("Api call error");
+                alert(error.message);
+            });
+        }
     }
     useEffect(() => {
         if (search.length > 0) {
-            getSearch()
+            getSearch(search)
         } else {
             getCategory()
         }
@@ -80,11 +106,12 @@ const EmergencyDetail = ({ navigation, route }) => {
                 />
             )
         }
+        const number = itemData.item.c_number
         return (
             <View>
 
                 <TouchableOpacity style={styles.category} onPress={() => {
-                    navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item })
+                    navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item, image: image })
                 }}>
                     <View style={styles.box}>
                         <Img />
@@ -92,26 +119,13 @@ const EmergencyDetail = ({ navigation, route }) => {
                             <Text style={styles.text}>
                                 {itemData.item.c_name}
                             </Text>
-                            <Text style={[styles.text, { color: "#414370", fontSize: 42 }]}>
+                            <Text style={[styles.text, { color: "#414370", fontSize: 28 }]}>
                                 {itemData.item.c_number}
-                                <TouchableOpacity
-                                    style={styles.icon}
-                                    onPress={() => onFavorite(itemData.item.id)}
-                                >
-                                    <FontAwesome
-                                        name="star"
-                                        size={32}
-                                        color="black"
-
-                                    />
-
-                                </TouchableOpacity>
                             </Text>
                         </View>
 
                         <TouchableOpacity style={styles.phone} onPress={() => {
-                            Linking.openURL('tel:' + { number });
-                            getTest()
+                            Linking.openURL('tel:' + number);
                         }}>
                             <FontAwesome name="phone" size={38} color="white" />
                         </TouchableOpacity>
@@ -133,7 +147,7 @@ const EmergencyDetail = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     box: {
         width: "100%",
-        borderTopWidth: 2,
+        borderBottomWidth: 2,
         flexDirection: "row",
         // justifyContent: 'space-around',
         padding: 15,

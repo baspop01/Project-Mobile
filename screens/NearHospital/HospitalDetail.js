@@ -44,6 +44,7 @@ const HospitalDetail = ({ route }) => {
     }, [])
 
     const mapKey = '6f8f9684d64437812015368c00f313c4'
+    const number = hospital.hphone
     return (
         <ScrollView style={styles.container}>
             <View style={{height: "80%", width: "100%"}}>
@@ -52,7 +53,7 @@ const HospitalDetail = ({ route }) => {
             <Text style={[styles.text, {fontSize: 25}]}>{hospital.hname}</Text>
             <Text style={styles.text}>{add}</Text>
             <Text style={styles.text}>ห่างประมาณ<Text style={styles.innerText}> {hospital.distance}</Text> กิโลเมตร</Text>
-            <TouchableOpacity style={styles.phone} onPress={() => { Linking.openURL('tel:'); }}>
+            <TouchableOpacity style={styles.phone} onPress={() => { Linking.openURL('tel:'+number); }}>
                 <FontAwesome name="phone" size={40} color="white" />
             </TouchableOpacity>
             <Text style={[styles.text, { color: "#414370", fontSize: 20 }]}>
