@@ -98,7 +98,7 @@ const HospitalScreen = ({ navigation, route }) => {
         return (
             <View>
                 <TouchableOpacity style={styles.category} onPress={() => {
-                    navigation.navigate("HospitalDetail", { prev: "HospitalScreen", hospital: itemData.item, lon: lon, lat: lat })
+                    navigation.navigate("HospitalDetail", { prev: "HospitalScreen", hospital: itemData.item, lon: lon, lat: lat, title: itemData.item.hname })
                 }}>
                     <View style={styles.box}>
                         <TypeH />

@@ -6,8 +6,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 import EmergencyScreen from "../screens/Emergency/EmergencyScreen";
 import HospitalScreen from "../screens/NearHospital/HospitalScreen";
-import PoliceStationScreen from "../screens/NearPolice/PoliceStationScreen";
-import StatisticsScreen from "../screens/Favorite/StatisticsScreen";
+import PoliceStationScreen from "../screens/PoliceArea/PoliceStationScreen";
+import StatisticsScreen from "../screens/Statistics/StatisticsScreen";
 import SosScreen from "../screens/SosPage/SosScreen";
 import EmergencyDetail from "../screens/Emergency/EmergencyDetail";
 import ServiceDetail from "../screens/Emergency/ServiceDetail";
@@ -53,7 +53,7 @@ function HospitalNavigator() {
         ({ route }) => ({
           headerStyle: {
             backgroundColor: "#61D8CF"
-          }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: route.params.title
+          }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 20 }, headerTitleAlign: "center", headerTitle: route.params.title
         })
       } />
       <Stack.Screen name="ServiceDetail" component={ServiceDetail} options={

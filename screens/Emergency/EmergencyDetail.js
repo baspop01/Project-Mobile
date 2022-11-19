@@ -23,6 +23,7 @@ const EmergencyDetail = ({ navigation, route }) => {
     const { prev, categoryId, image, search } = route.params;
     const [category, setCategory] = useState([]);
     const [msg, setMsg] = useState("");
+    const [img, setImg] = useState("");
 
     const getCategoryBySearch = (data) => {
         Axios.get("http://localhost:3000/category").then((res) => {
@@ -91,17 +92,20 @@ const EmergencyDetail = ({ navigation, route }) => {
     }, [])
 
     const renderCategories = (itemData) => {
+        var getImage = ""
         const Img = () => {
-            var img = image;
+            var img1 = image;
             CATEGORIES.forEach((val) => {
                 if (itemData.item.c_type == parseInt(val.id)) {
-                    img = val.image
+                    img1 = val.image
                 }
             })
+            getImage = img1
+
             return (
                 <Image
                     style={styles.tinyLogo}
-                    source={{ uri: img }}
+                    source={{ uri: img1 }}
                 // source={itemData.item.image}
                 />
             )
@@ -109,9 +113,8 @@ const EmergencyDetail = ({ navigation, route }) => {
         const number = itemData.item.c_number
         return (
             <View>
-
                 <TouchableOpacity style={styles.category} onPress={() => {
-                    navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item, image: image })
+                    navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item, image: getImage })
                 }}>
                     <View style={styles.box}>
                         <Img />

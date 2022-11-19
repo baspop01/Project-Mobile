@@ -95,7 +95,7 @@ const EmergencyScreen = ({ navigation }) => {
                 }} placeholder="ค้นหาบริการฉุกเฉิน" value={search} style={{ backgroundColor: "white", borderRadius: 50, padding: 10, margin: 10, width: "60%" }}
                 />
                 <TouchableOpacity style={{ borderRadius: 50, backgroundColor: "white", padding: 10, margin: 10 }} onPress={() => {
-                    navigation.navigate("EmergencyDetail", { prev: "Emergency", search: search, title: "สายด่วนฉุกเฉิน", image: "", categoryId: "none" })
+                    navigation.navigate("EmergencyDetail", { prev: "Emergency", search: search, title: search, image: "", categoryId: "none" })
                 }}>
                     <Ionicons name="search" color={"black"} size={20} />
                 </TouchableOpacity>

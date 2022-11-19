@@ -74,8 +74,8 @@ const StatisticsScreen = ({ navigation }) => {
     const renderStatisTotal = (itemData) => {
         return (
             <View style={{ flexDirection: "row", margin: 10 }}>
-                <FontAwesome name="bookmark" size={20} color={itemData.item.color} />
-                <Text> {itemData.item.name} : {itemData.item.total}K คน</Text>
+                <FontAwesome name="bookmark" size={15} color={itemData.item.color} />
+                <Text style={{fontSize: 11}}> {itemData.item.name} : {itemData.item.total}K คน</Text>
             </View>
         )
     }
@@ -194,6 +194,7 @@ const StatisticsScreen = ({ navigation }) => {
                 <Text style={styles.text}>
                     สถิติข้อมูลผู้เสียชีวิต บาดเจ็บ และพิการจากอุบัติเหตุในแต่ละภูมิภาคของประเทศไทย ปี 2565
                 </Text>
+                <Text style={{fontSize: 11, textAlign: "left"}}>ขอบคุณข้อมูลจาก ศูนย์ข้อมูลอุบัติเหตุ ThaiRSC</Text>
                 <View style={{ alignSelf: "center" }}>
                     <PieChart
                         data={totalList}
@@ -208,7 +209,7 @@ const StatisticsScreen = ({ navigation }) => {
                         hasLegend={false}
                     />
                 </View>
-                <FlatList data={totalList} initialNumToRender={totalList.length} renderItem={renderStatisTotal} numColumns={1} />
+                <FlatList data={totalList} initialNumToRender={totalList.length} renderItem={renderStatisTotal} numColumns={2} />
                 <View style={{ flexDirection: "row", marginTop: 20}}>
                     <FontAwesome name="bookmark" size={25} color={totalList[0].color} />
                     <Text style={styles.text2}>
