@@ -24,11 +24,22 @@ const EmergencyDetail = ({ navigation, route }) => {
     const [category, setCategory] = useState([]);
     const [msg, setMsg] = useState("");
     const [img, setImg] = useState("");
+    const [recommended, setRecommended] = useState();
 
     const getCategoryBySearch = (data) => {
+        let array = []
+        for (let i = 1; i < data.length; i++){
+            array.push(data[i])
+        }
+        console.log(array)
         Axios.get("http://localhost:3000/category").then((res) => { 
+            let dataRec = res.data.filter(val => {
+                return data[0] == val.id.toString();
+            })
+            console.log(dataRec)
+            setRecommended(dataRec)
             let val = res.data.filter(val => {
-                return data.includes(val.id.toString())
+                return array.includes(val.id.toString())
             })
             setMsg("")
             setCategory(val);
@@ -137,14 +148,26 @@ const EmergencyDetail = ({ navigation, route }) => {
             </View>
         );
     };
-
-    return (
-        <ScrollView>
-            <FlatList data={category} renderItem={renderCategories} numColumns={1} />
-            <Text style={{textAlign: "center", fontSize: 25, margin: "25%"}}>{msg}</Text>
-        </ScrollView>
-
-    );
+    if (recommended){
+        return (
+            <ScrollView>
+                <Text> Recommended นะ</Text>
+                <FlatList data={recommended} renderItem={renderCategories} numColumns={1} />
+                <Text> ---------------------------------</Text>
+                <FlatList data={category} renderItem={renderCategories} numColumns={1} />
+                <Text style={{textAlign: "center", fontSize: 25, margin: "25%"}}>{msg}</Text>
+            </ScrollView>
+    
+        );
+    }else{
+        return (
+            <ScrollView>
+                <FlatList data={category} renderItem={renderCategories} numColumns={1} />
+                <Text style={{textAlign: "center", fontSize: 25, margin: "25%"}}>{msg}</Text>
+            </ScrollView>
+    
+        );
+    }
 };
 
 const styles = StyleSheet.create({
