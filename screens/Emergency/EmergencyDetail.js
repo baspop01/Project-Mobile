@@ -26,7 +26,7 @@ const EmergencyDetail = ({ navigation, route }) => {
     const [img, setImg] = useState("");
 
     const getCategoryBySearch = (data) => {
-        Axios.get("http://localhost:3000/category").then((res) => {
+        Axios.get("http://localhost:3000/category").then((res) => { 
             let val = res.data.filter(val => {
                 return data.includes(val.id.toString())
             })

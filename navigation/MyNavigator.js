@@ -109,7 +109,7 @@ function TabNavigator() {
           return <Ionicons name="medical" size={35} color={color} />;
         }, headerStyle: {
           backgroundColor: "#61D8CF"
-        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 30 }, headerTitleAlign: "center", headerTitle: "ขอความช่วยเหลือเร่งด่วน"
+        }, headerTintColor: "#AF4242", headerTitleStyle: { fontWeight: "bold", fontSize: 20 }, headerTitleAlign: "center", headerTitle: "ขอความช่วยเหลือเร่งด่วน"
       }} />
     </Tab.Navigator>
   );
