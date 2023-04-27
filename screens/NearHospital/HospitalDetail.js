@@ -22,13 +22,13 @@ const HospitalDetail = ({ route }) => {
     const { hospital, lat, lon } = route.params;
     const [add, setAdd] = useState("loading location...");
     const initMap = () => {
-        var marker1 = new longdo.Marker({ lon: hospital.hlon, lat: hospital.hlat }, {
+        var marker2 = new longdo.Marker({ lon: hospital.hlon, lat: hospital.hlat }, {
             icon: {
                 html: hospital.hname,
                 offset: { x: 18, y: 21 }
               },
         });
-        var marker2 = new longdo.Marker({ lon: lon, lat: lat });
+        var marker1 = new longdo.Marker({ lon: lon, lat: lat });
         map.Route.add(marker1);
         map.Route.add(marker2);
         map.Route.search();

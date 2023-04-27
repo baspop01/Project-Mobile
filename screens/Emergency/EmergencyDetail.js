@@ -28,11 +28,10 @@ const EmergencyDetail = ({ navigation, route }) => {
 
     const getCategoryBySearch = (data) => {
         let array = []
-        for (let i = 1; i < data.length; i++){
+        for (let i = 1; i < data.length; i++) {
             array.push(data[i])
         }
-        console.log(array)
-        Axios.get("http://localhost:3000/category").then((res) => { 
+        Axios.get("http://localhost:3000/category").then((res) => {
             let dataRec = res.data.filter(val => {
                 return data[0] == val.id.toString();
             })
@@ -49,10 +48,10 @@ const EmergencyDetail = ({ navigation, route }) => {
         });
 
     }
-    
+
     const getCategory = () => {
         Axios.get("http://localhost:3000/category").then((res) => {
-            if(categoryId == "none"){
+            if (categoryId == "none") {
                 setMsg("ไม่มีคำที่ค้นหา")
             }
             let val = res.data.filter((val) => {
@@ -78,13 +77,13 @@ const EmergencyDetail = ({ navigation, route }) => {
             console.log("Api call error");
             alert(error.message);
         });
-        if(check){
+        if (check) {
             Axios.get("http://localhost:3000/search", {
                 params: {
                     search: search,
                 }
             }).then((res) => {
-                if (res.data.length == 0){
+                if (res.data.length == 0) {
                     setMsg("ไม่มีคำที่ค้นหา")
                 }
                 setCategory(res.data)
@@ -101,7 +100,39 @@ const EmergencyDetail = ({ navigation, route }) => {
             getCategory()
         }
     }, [])
+    const renderRecommand = (itemData) => {
+        const number = itemData.item.c_number
+        return (
+            <View>
+                <TouchableOpacity style={[styles.category, { backgroundColor: "#ABFF7B" }]} onPress={() => {
+                    navigation.navigate("ServiceDetail", { prev: "EmergencyDetail", category: itemData.item, image: getImage })
+                }}>
+                    <Text style={{ fontSize: 32, marginLeft: 20, marginTop: 5, fontWeight: "bold" }}>Recommended</Text>
+                    <View style={styles.box}>
+                        <Image
+                            style={styles.tinyLogo}
+                            source={{ uri: "https://media.discordapp.net/attachments/821411238772080660/1036651136058400788/e51247c78df1852f.png" }}
+                        // source={itemData.item.image}
+                        />
+                        <View style={styles.name}>
+                            <Text style={styles.text}>
+                                {itemData.item.c_name}
+                            </Text>
+                            <Text style={[styles.text, { color: "#414370", fontSize: 28 }]}>
+                                {itemData.item.c_number}
+                            </Text>
+                        </View>
 
+                        <TouchableOpacity style={styles.phone} onPress={() => {
+                            Linking.openURL('tel:' + number);
+                        }}>
+                            <FontAwesome name="phone" size={38} color="white" />
+                        </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    };
     const renderCategories = (itemData) => {
         var getImage = ""
         const Img = () => {
@@ -148,24 +179,22 @@ const EmergencyDetail = ({ navigation, route }) => {
             </View>
         );
     };
-    if (recommended){
+    if (recommended) {
         return (
             <ScrollView>
-                <Text> Recommended นะ</Text>
-                <FlatList data={recommended} renderItem={renderCategories} numColumns={1} />
-                <Text> ---------------------------------</Text>
+                <FlatList data={recommended} renderItem={renderRecommand} numColumns={1} />
                 <FlatList data={category} renderItem={renderCategories} numColumns={1} />
-                <Text style={{textAlign: "center", fontSize: 25, margin: "25%"}}>{msg}</Text>
+                <Text style={{ textAlign: "center", fontSize: 25, margin: "25%" }}>{msg}</Text>
             </ScrollView>
-    
+
         );
-    }else{
+    } else {
         return (
             <ScrollView>
                 <FlatList data={category} renderItem={renderCategories} numColumns={1} />
-                <Text style={{textAlign: "center", fontSize: 25, margin: "25%"}}>{msg}</Text>
+                <Text style={{ textAlign: "center", fontSize: 25, margin: "25%" }}>{msg}</Text>
             </ScrollView>
-    
+
         );
     }
 };
